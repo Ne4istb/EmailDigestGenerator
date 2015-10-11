@@ -1,33 +1,32 @@
-library EmailDigestGenerator.link_aggregator;
+library EmailDigestGenerator.mail_generator;
 
 import 'package:EmailDigestGenerator/src/LinkAggregator.dart';
 
 class MailGenerator {
 
-	String _template;
-	List<Link> _source;
+  String _template;
+  List<Link> _source;
 
-	MailGenerator(this._template, this._source);
+  MailGenerator(this._template, this._source);
 
-	String generate(){
+  String generate() {
+    var regexString = r'<!-- start repeat -->(.*)<!-- end repeat -->';
 
-		var regexString = r'<!-- start repeat -->(.*)<!-- end repeat -->';
-		var regex = new RegExp(regexString);
-		var matches = regex.allMatches(_template);
+    var regex = new RegExp(regexString);
+    var matches = regex.allMatches(_template);
 
-		var itemTemplate = matches.first[1];
+    var itemTemplate = matches.first[1];
 
-		var result = "";
-		_source.forEach((link) {
-			result+= itemTemplate
-				.replaceAll("{{Url}}", link.url)
-				.replaceAll("{{Description}}", link.description)
-				.replaceAll("{{Title}}", link.title);
-		});
+    var result = "";
+    _source.forEach((link) {
+      result += itemTemplate
+        .replaceAll("{{Url}}", link.url)
+        .replaceAll("{{Description}}", link.description)
+        .replaceAll("{{Title}}", link.title);
+    });
 
-		result = _template.replaceFirst(itemTemplate, result);
+    result = _template.replaceFirst(itemTemplate, result);
 
-		return result;
-	}
-
+    return result;
+  }
 }

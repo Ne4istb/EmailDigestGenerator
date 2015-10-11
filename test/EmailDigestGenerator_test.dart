@@ -1,7 +1,3 @@
-// Copyright (c) 2015, <your name>. All rights reserved. Use of this source code
-
-// is governed by a BSD-style license that can be found in the LICENSE file.
-
 library EmailDigestGenerator.test;
 
 import 'package:EmailDigestGenerator/EmailDigestGenerator.dart';
@@ -10,11 +6,6 @@ import 'package:EmailDigestGenerator/src/MailGenerator.dart';
 
 void main() {
 	group('Link aggrregator tests', () {
-		LinkAggregator aggregator;
-
-		setUp(() {
-			aggregator = new LinkAggregator();
-		});
 
 		void _assertLink(Link actual, Link expected){
 			expect(actual.title, expected.title);
@@ -24,7 +15,7 @@ void main() {
 		}
 
 		test('Should return list', () {
-			var result = aggregator.getLinks();
+			var result = LinkAggregator.getLinks();
 			var expected = [
 				new Link('First article', 'The first one', 'http://first', ['Digest','ES6']),
 				new Link('Second article', 'The second one', 'http://second', ['News','Digest']),
@@ -43,9 +34,6 @@ void main() {
 	group('Mail generator tests', () {
 		MailGenerator generator;
 
-		setUp(() {
-		});
-
 		test('Should generate email', () {
 
 			var links = [
@@ -57,27 +45,35 @@ void main() {
 
 			var template =
 				'<h1>Digest title</h1>' +
-				'<li>' +
+				'<ul>' +
 					'<!-- start repeat -->' +
-						'<ul><a href=\'{{Url}}\'>{{Url}}</a> - <b>{{Title}}</b>:{{Description}}</ul>' +
+						'<li><a href=\'{{Url}}\'>{{Url}}</a> - <b>{{Title}}</b>:{{Description}}</li>' +
 					'<!-- end repeat -->' +
-				'</li>';
+				'</ul>';
 
 			generator = new MailGenerator(template, links);
 			var result = generator.generate();
 
 			var expected =
 				'<h1>Digest title</h1>' +
-				'<li>' +
+				'<ul>' +
 					'<!-- start repeat -->' +
-						'<ul><a href=\'http://first\'>http://first</a> - <b>First article</b>:The first one</ul>'
-						'<ul><a href=\'http://second\'>http://second</a> - <b>Second article</b>:The second one</ul>'
-						'<ul><a href=\'http://last\'>http://last</a> - <b>Last article</b>:The last one</ul>'
-						'<ul><a href=\'http://other\'>http://other</a> - <b>Another article</b>:The anothe one</ul>'
+						'<li><a href=\'http://first\'>http://first</a> - <b>First article</b>:The first one</li>'
+						'<li><a href=\'http://second\'>http://second</a> - <b>Second article</b>:The second one</li>'
+						'<li><a href=\'http://last\'>http://last</a> - <b>Last article</b>:The last one</li>'
+						'<li><a href=\'http://other\'>http://other</a> - <b>Another article</b>:The anothe one</li>'
 					'<!-- end repeat -->' +
-				'</li>';
+				'</ul>';
 
 			expect(result, expected);
 		});
 	});
+
+//	group('Mailer tests', ()
+//	{
+//		test('Should generate email', () {
+//			var mailer = new Mailer();
+//			mailer.send();
+//		});
+//	});
 }
