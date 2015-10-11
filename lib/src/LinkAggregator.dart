@@ -14,6 +14,7 @@ class Link {
 	String description;
 	String url;
 	List<String> tags;
+	String imageUrl;
 
-	Link(this.title, this.description, this.url, this.tags);
+	Link(this.title, this.description, this.url, this.tags, {this.imageUrl});
 }
