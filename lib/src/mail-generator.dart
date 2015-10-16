@@ -1,6 +1,6 @@
 library EmailDigestGenerator.mail_generator;
 
-import 'package:EmailDigestGenerator/src/LinkAggregator.dart';
+import 'package:EmailDigestGenerator/src/link-aggregator.dart';
 
 class MailGenerator {
 

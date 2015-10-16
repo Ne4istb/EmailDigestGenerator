@@ -1,8 +1,8 @@
 library EmailDigestGenerator.test;
 
-import 'package:EmailDigestGenerator/EmailDigestGenerator.dart';
+import 'package:EmailDigestGenerator/email-digest-generator.dart';
 import 'package:test/test.dart';
-import 'package:EmailDigestGenerator/src/MailGenerator.dart';
+import 'package:EmailDigestGenerator/src/mail-generator.dart';
 
 void main() {
 	group('Link aggrregator tests', () {

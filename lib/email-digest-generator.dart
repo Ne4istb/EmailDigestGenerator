@@ -3,8 +3,9 @@
 
 library EmailDigestGenerator;
 
-export 'src/LinkAggregator.dart';
-export 'src/MailGenerator.dart';
-export 'src/Mailer.dart';
+export 'src/link-aggregator.dart';
+export 'src/mail-generator.dart';
+export 'src/mailer.dart';
+export 'src/link.dart';
 
 
