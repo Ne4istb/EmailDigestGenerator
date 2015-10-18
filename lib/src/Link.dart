@@ -4,12 +4,14 @@ import 'package:pocket_client/pocket_client.dart';
 import 'dart:convert';
 
 class Link {
-  int id;
-  String title;
-  String description;
-  String url;
-  List<String> tags;
-  String imageUrl;
+  int id = 0;
+  String title = '';
+  String description = '';
+  String url = '';
+  List<String> tags = [];
+  String imageUrl = '';
+
+  Link();
 
   Link.fromPocketItem(PocketData data) {
     id = int.parse(data.itemId);
@@ -32,20 +34,15 @@ class Link {
   }
 
   String toJson(){
-    return '{'
-      '"id": $id,'
-      '"title": "$title",'
-      '"description": "$description",'
-      '"url": "$url",'
-      '"tags": ${JSON.encode(tags)},'
-      '"imageUrl": "$imageUrl"'
-    '}';
+    return JSON.encode(toMap);
   }
-}
 
-class Group{
-  String name;
-  List<Link> links;
-
-  Group(this.name, this.links);
+  get toMap => {
+    'id': id,
+    'title': title,
+    'description': description,
+    'url': url,
+    'tags': tags,
+    'imageUrl': imageUrl
+  };
 }

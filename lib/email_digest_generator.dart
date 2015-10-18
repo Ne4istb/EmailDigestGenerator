@@ -8,5 +8,3 @@ export 'src/mail_generator.dart';
 export 'src/mailer.dart';
 export 'src/link.dart';
 export 'src/repository.dart';
-
-

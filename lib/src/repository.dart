@@ -29,13 +29,13 @@ class Repository {
   saveDigest(int id, Map<String, List<Link>> links) async {
     var url = '$_issuesUrl?apiKey=$_apiKey';
 
-    String linksJson = JSON.encode(links, toEncodable: (pattern) {
-      return (pattern as Link).toJson();
-    });
+    var linksJson = JSON.encode(links);
 
-    var json = '{"_id": $id, "data": $linksJson}';
+    var json = '{ "_id": $id, "data": $linksJson }';
 
-    await _httpClient.post(url, body: json, headers: { 'Content-Type': 'application/json'});
+    _httpClient
+      .post(url, body: json, headers: { 'Content-Type': 'application/json'})
+      .catchError(onError);
   }
 
   Future<Map<String, List<Link>>> getDigest(id) {
@@ -50,6 +50,10 @@ class Repository {
 
   Future _httpGet(url) {
     return _httpClient.get(url).then((Response response) => JSON.decode(response.body));
+  }
+
+  onError(response){
+   print('Error $response');
   }
 
   Map<String, List<Link>> _convertToGroups(Map body) {
