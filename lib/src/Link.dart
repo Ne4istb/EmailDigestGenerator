@@ -1,6 +1,7 @@
 library EmailDigestGenerator.link;
 
 import 'package:pocket_client/pocket_client.dart';
+import 'dart:convert';
 
 class Link {
   int id;
@@ -18,4 +19,33 @@ class Link {
     imageUrl = data.hasImages ? data.images[0].sourceUrl : '';
     description = data.excerpt;
   }
+
+  Link.fromJson(value) {
+    Map map = JSON.decode(value);
+
+    id = map['id'];
+    title = map['title'];
+    description = map['description'];
+    url = map['url'];
+    imageUrl = map['imageUrl'];
+    tags = map['tags'];
+  }
+
+  String toJson(){
+    return '{'
+      '"id": $id,'
+      '"title": "$title",'
+      '"description": "$description",'
+      '"url": "$url",'
+      '"tags": ${JSON.encode(tags)},'
+      '"imageUrl": "$imageUrl"'
+    '}';
+  }
+}
+
+class Group{
+  String name;
+  List<Link> links;
+
+  Group(this.name, this.links);
 }

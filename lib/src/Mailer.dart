@@ -4,7 +4,7 @@ import 'package:mailer/mailer.dart';
 
 class Mailer {
 
-  send(title, body, recipients) {
+  send(title, body, recipients) async{
     var options = new GmailSmtpOptions()
       ..username = 'anechytailov@gmail.com'
       ..password = '<my_password>';
@@ -18,7 +18,7 @@ class Mailer {
       ..subject = title
       ..html = body;
 
-    transport.send(envelope)
+    await transport.send(envelope)
     .then((_) => print('email sent!'))
     .catchError((e) => print('Error: $e'));
   }

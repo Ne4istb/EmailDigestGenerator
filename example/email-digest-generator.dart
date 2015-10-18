@@ -15,12 +15,16 @@ main() async{
 
 	var linksByGroup = await linkAggregator.getLinksByGroup();
 
-	await sendEmail(linksByGroup);
+//	await sendEmail(linksByGroup);
 
+	var repository = new Repository();
+//  await repository.saveDigest(15, linksByGroup);
+//  await repository.getDigest(15);
+  await repository.getAllDigests();
 //	linkAggregator.cleanUp(linksByGroup);
 }
 
-sendEmail(Map<String, List<Link>> linksByGroup) {
+sendEmail(Map<String, List<Link>> linksByGroup) async{
 	var recipients = ['anechytailov@gmail.com'];
 	var title = 'Digest title';
 
@@ -45,5 +49,5 @@ sendEmail(Map<String, List<Link>> linksByGroup) {
 	var result = generator.generate();
 
 	var mailer = new Mailer();
-	mailer.send(title, result, recipients);
+	await mailer.send(title, result, recipients);
 }
