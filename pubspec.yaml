@@ -1,4 +1,4 @@
-name: EmailDigestGenerator
+name: email_digest_generator
 description: A simple weeklly digest generator base on Pocket links
 version: 0.0.1
 author: Ne4istb <anechytailov@gmail.com>

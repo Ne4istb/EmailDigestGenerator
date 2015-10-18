@@ -4,7 +4,7 @@
 
 library EmailDigestGenerator.example;
 
-import 'package:EmailDigestGenerator/email-digest-generator.dart';
+import 'package:email_digest_generator/email_digest_generator.dart';
 
 const consumerKey = '<consumer_key>';
 const accessToken = '<access_code>';

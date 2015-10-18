@@ -1,4 +1,4 @@
-library EmailDigestGenerator.link;
+library email_digest_generator.link;
 
 import 'package:pocket_client/pocket_client.dart';
 import 'dart:convert';

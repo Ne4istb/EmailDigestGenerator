@@ -1,10 +1,12 @@
+library email_digest_generator.repository;
+
 //import 'package:mongo_dart/mongo_dart.dart';
 
 import 'package:http/http.dart';
 import 'dart:convert';
 import 'dart:async';
 
-import 'package:EmailDigestGenerator/src/link.dart';
+import 'package:email_digest_generator/src/link.dart';
 
 
 class Repository {

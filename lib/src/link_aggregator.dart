@@ -1,7 +1,7 @@
-library EmailDigestGenerator.link_aggregator;
+library email_digest_generator.link_aggregator;
 
 import 'package:pocket_client/pocket_client.dart';
-import 'package:EmailDigestGenerator/src/link.dart';
+import 'package:email_digest_generator/src/link.dart';
 import 'dart:async';
 
 class LinkAggregator {

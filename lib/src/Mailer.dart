@@ -1,4 +1,4 @@
-library EmailDigestGenerator.mailer;
+library email_digest_generator.mailer;
 
 import 'package:mailer/mailer.dart';
 
