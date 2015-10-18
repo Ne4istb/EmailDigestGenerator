@@ -11,12 +11,12 @@ import 'package:email_digest_generator/src/link.dart';
 
 class Repository {
 
-  final String _issuesUrl = '<path_to_mongo_collection>';
-  final String _apiKey = '<api_key>';
+  final String _issuesUrl = 'https://api.mongolab.com/api/1/databases/digests/collections/issues';
 
+  String _apiKey;
   Client _httpClient;
 
-  Repository([Client httpClient = null]) {
+  Repository(this._apiKey, [Client httpClient = null]) {
     _httpClient = (httpClient == null) ? new Client() : httpClient;
   }
 

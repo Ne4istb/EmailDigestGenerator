@@ -4,10 +4,15 @@ import 'package:mailer/mailer.dart';
 
 class Mailer {
 
+  String _userName;
+  String _password;
+
+  Mailer(this._userName, this._password);
+
   send(title, body, recipients) async{
     var options = new GmailSmtpOptions()
-      ..username = 'anechytailov@gmail.com'
-      ..password = '<my_password>';
+      ..username = _userName
+      ..password = _password;
 
     var transport = new SmtpTransport(options);
 
