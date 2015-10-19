@@ -10,37 +10,28 @@ class MailGenerator {
   MailGenerator(this._template, this._source);
 
   String generate() {
-    var groupTemplate = getTemplate(_template, r'<!-- start group repeat -->(.*)<!-- end group repeat -->');
+
+    var groupTemplate = getTemplate(_template, r'<!-- start group repeat -->((.|\n|\r)*)<!-- end group repeat -->');
 
     var result = "";
     _source.forEach((groupName, links) {
+
       var groupHtml = groupTemplate.replaceAll("{{Group}}", groupName);
 
-      var itemTemplate = getTemplate(groupHtml, r'<!-- start repeat -->(.*)<!-- end repeat -->');
+      var itemTemplate = getTemplate(groupHtml, r'<!-- start repeat -->((.|\n|\r)*)<!-- end repeat -->');
 
-      var blocks = '';
-      links.forEach((link) {
-        blocks += itemTemplate
+      var blocks = links.map((link) => itemTemplate
         .replaceAll("{{Url}}", link.url)
         .replaceAll("{{Description}}", link.description)
         .replaceAll("{{Title}}", link.title)
-        .replaceAll("{{ImageUrl}}", link.imageUrl);
-      });
+        .replaceAll("{{ImageUrl}}", link.imageUrl))
+      .join();
 
       result += groupHtml.replaceFirst(itemTemplate, blocks);
     });
 
-    result = _template.replaceFirst(groupTemplate, result);
-
-    return result;
+    return _template.replaceFirst(groupTemplate, result);
   }
 
-  getTemplate(template, regex) {
-    var regexItem = new RegExp(regex);
-    var matches = regexItem.allMatches(template);
-
-    var itemTemplate = matches.first[1];
-
-    return itemTemplate;
-  }
+  getTemplate(String template, regex) => new RegExp(regex, multiLine:true).firstMatch(template)[0];
 }

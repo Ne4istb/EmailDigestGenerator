@@ -14,6 +14,8 @@ class LinkAggregator {
     _client = new Client(consumerKey, accessToken);
   }
 
+  LinkAggregator.fromPocketClient(this._client);
+
   Future<Map<String, List<Link>>> getLinksByGroup() {
 
     var options = new RetrieveOptions()
