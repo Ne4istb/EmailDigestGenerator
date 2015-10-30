@@ -11,15 +11,16 @@ class Mailer {
   Mailer(this._userName, this._password);
 
   send(title, body, recipients, {List<File> attachments}) async{
-    var options = new GmailSmtpOptions()
+
+    var options = new MailgunSmtpOptions()
       ..username = _userName
       ..password = _password;
 
     var transport = new SmtpTransport(options);
 
     var envelope = new Envelope()
-      ..from = 'anechytailov@gmail.com'
-      ..fromName = 'Ne4istb'
+      ..from = 'anechytailov@sdl.com'
+      ..fromName = 'Andrii Nechytailov'
       ..recipients = recipients
       ..subject = title
       ..html = body
