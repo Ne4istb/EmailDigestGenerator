@@ -4,6 +4,7 @@ import 'package:pocket_client/pocket_client.dart';
 import 'dart:convert';
 
 class Link {
+
   int id = 0;
   String title = '';
   String description = '';

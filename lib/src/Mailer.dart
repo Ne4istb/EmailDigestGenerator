@@ -1,6 +1,7 @@
 library email_digest_generator.mailer;
 
 import 'package:mailer/mailer.dart';
+import 'dart:io';
 
 class Mailer {
 
@@ -9,7 +10,7 @@ class Mailer {
 
   Mailer(this._userName, this._password);
 
-  send(title, body, recipients) async{
+  send(title, body, recipients, {List<File> attachments}) async{
     var options = new GmailSmtpOptions()
       ..username = _userName
       ..password = _password;
@@ -21,7 +22,8 @@ class Mailer {
       ..fromName = 'Ne4istb'
       ..recipients = recipients
       ..subject = title
-      ..html = body;
+      ..html = body
+      ..attachments = attachments != null ? attachments.map((file) => new Attachment(file: file)).toList() : [];
 
     await transport.send(envelope)
     .then((_) => print('email sent!'))
