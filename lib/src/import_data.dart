@@ -986,4 +986,138 @@ class Import{
     ]
   };
 
+  static get digest15 => {
+    'JavaScript' : [
+      new Link()
+        ..title = '10 Interview QuestionsEvery JavaScript Developer Should Know'
+        ..description = 'At most companies, management must trust the developers to give technical interviews in order to assess candidate skills. If you do well as a candidate, you’ll eventually need to interview. Here’s how. I advise people to hire based on whether or not a developer believes in class inheritance.'
+        ..url = 'https://medium.com/javascript-scene/10-interview-questions-every-javascript-developer-should-know-6fa6bdf5ad95#.1bk0p22iv'
+        ..tags = ['javascript'],
+      new Link()
+        ..title = 'The difference between Service Workers, Web Workers and WebSockets'
+        ..description = 'As fairly-new web technologies, Service Workers, Web Workers and WebSockets all started, stalled, and then sort of made a resurgence. And so I find myself somewhat confused by exactly what each does, what the differences between them are, and what purpose each ideally serves.'
+        ..url = 'http://aarontgrogg.com/blog/2015/07/20/the-difference-between-service-workers-web-workers-and-websockets/'
+        ..tags = ['javascript'],
+    ],
+    'Web-development' : [
+      new Link()
+        ..title = 'Cheat Sheets for Frontend Developers'
+        ..description = 'Cheat sheets are amazingly handy quick reference resources that are time saving and educational, so we should probably all use them at one time or another. For frontend development, cheat sheets are especially helpful as most of us cannot commit every snippet, tag, etc, to memory.'
+        ..url = 'https://webdesignviews.com/cheat-sheets/'
+        ..tags = ['web', 'development', 'tips'],
+      new Link()
+        ..title = 'A Short Refresh On HTML5'
+        ..description = 'The doctype pre HTML5 was pretty long and cumbersome. The new HTML5 doctype looks like this: The doctype is case-insensitive, I mostly write it in all lowercase.'
+        ..url = 'https://topaxi.codes/a-short-refresh-on-html5/'
+        ..tags = ['web', 'development', 'tips'],
+      new Link()
+        ..title = 'Useful Javascript debugging tips you might not know'
+        ..url = 'https://raygun.io/blog/2015/06/useful-javascript-debugging-tips-you-didnt-know/'
+        ..tags = ['web', 'development', 'tips'],
+      new Link()
+        ..title = 'Dev Tips'
+        ..description = 'A developer tip, in the form of a gif, in your inbox each week.'
+        ..url = 'https://umaar.com/dev-tips/'
+        ..tags = ['web', 'development', 'tips']
+    ],
+    'ES6' : [
+      new Link()
+        ..title = 'ES6 Math Additions in Depth'
+        ..description = 'You’ve made it! Here’s another article in the ES6 – “What? I’d rather develop for IE6” – in Depth series. If you’ve never been around here before, start with A Brief History of ES6 Tooling.'
+        ..url = '<todo>'
+        ..tags = ['es6'],
+      new Link()
+        ..title = 'Enumerability in ECMAScript 6'
+        ..description = 'Enumerability is an attribute of object properties. This blog post explains how it works in ECMAScript 6. Let’s first explore what attributes are.'
+        ..url = 'http://www.2ality.com/2015/10/enumerability-es6.html?m=1'
+        ..tags = ['es6'],
+      new Link()
+        ..title = 'The Genius of Template Strings in ES6  '
+        ..description = 'ES6 is the future of JavaScript and it is already here. It is a finished specification, and it brings a lot of features a language requires to stay competitive with the needs of the web of now.'
+        ..url = 'http://code.tutsplus.com/tutorials/the-genius-of-template-strings-in-es6--cms-24915'
+        ..tags = ['es6'],
+      new Link()
+        ..title = 'The names of functions in ES6'
+        ..description = 'This property is useful for debugging (its value shows up in stack traces) and some metaprogramming tasks (picking a function by name etc.). Prior to ECMAScript 6 (ES6), this property was already supported by most engines.'
+        ..url = 'http://www.2ality.com/2015/09/function-names-es6.html'
+        ..tags = ['es6']
+    ],
+    'CSS' : [
+      new Link()
+        ..title = 'PostCSS Deep Dive: What You Need to Know'
+        ..description = 'If there’s one thing you really need to know about PostCSS, it’s that you should learn what it is and how to use it ASAP. In this series, we’re going to take a deep dive into PostCSS and take you through all the major ways you can use it.'
+        ..url = 'http://webdesign.tutsplus.com/tutorials/postcss-deep-dive-what-you-need-to-know--cms-24535'
+        ..tags = ['css'],
+      new Link()
+        ..title = 'Use Cases For Css Calc'
+        ..description = 'If you know the height of the element, CSS Calc can make it super simple to position an element vertical centre and respect a responsive layout. 50vh is always half the height of the viewport, so we position the element half way down the screen.'
+        ..url = 'http://vincentp.me/blog/use-cases-for-calc/'
+        ..tags = ['css'],
+      new Link()
+        ..title = 'CSS stacking contexts: What they are and how they work'
+        ..description = 'Stacking contexts are an aspect of CSS that trips up most developers. I don\'t think I fully understood them until I wrote the layout chapter of CSS Master. Sure, I understood that z-index required position to be something besides static.'
+        ..url = 'http://tiffanybbrown.com/2015/09/css-stacking-contexts-wtf/?utm_source=html5weekly&utm_medium=email'
+        ..tags = ['css'],
+      new Link()
+        ..title = 'How To Do Knockout Text'
+        ..description = 'The Lodge is members-only web design and development videos and live help. Log In or Sign Up.'
+        ..url = 'https://css-tricks.com/how-to-do-knockout-text/?utm_source=html5weekly&utm_medium=email'
+        ..tags = ['css'],
+      new Link()
+        ..title = 'Style Guides, Pattern Libraries and Code Standards // Speaker Deck'
+        ..description = 'After interviewing a dozen people with Brad Frost for their podcast on Style Guides for the web, Anna has collated all their findings for this talk on the different kinds that are out there, how they\'re built, what works (and what doesn\'t), and what makes them such a useful tool.'
+        ..url = 'https://speakerdeck.com/anna/style-guides-pattern-libraries-and-code-standards'
+        ..tags = ['css'],
+      new Link()
+        ..title = 'CSS Guidelines'
+        ..description = 'is a document by me, Harry Roberts. I am a Consultant Front-end Architect from the UK, and I help companies all over the world write and manage better quality UIs for their products and teams. I am available for hire.'
+        ..url = 'http://cssguidelin.es'
+        ..tags = ['css'],
+
+    ],
+    'C#' : [
+      new Link()
+        ..title = ' Top 15 Underutilized Features of .NET'
+        ..title = 'I have been keen on the elegance and beauty of the C# language since I wrote my first lines of C# code. I read different articles and books about it, always when I have free time. Here I am going to share with you dozens of my favorite underutilized features of C# (oft-forgotten/interesting/arcane/hidden).'
+        ..url = 'http://automatetheplanet.com/top-15-underutilized-features-dotnet/'
+        ..tags = ['.net'],
+      new Link()
+        ..title = 'Top 15 Underutilized Features of .NET Part 2'
+        ..description = 'In this article, I’m going to share with you even more hidden features of C# language (underutilized). If you missed the first publication you should check it- Top 15 Underutilized Features of .NET'
+        ..url = 'http://www.codeproject.com/Articles/1027959/Top-Underutilized-Features-of-NET-Part'
+        ..tags = ['.net']
+    ],
+    'Other' : [
+      new Link()
+        ..title = '40 Key Computer Science Concepts Explained In Layman’s Terms'
+        ..title = 'To make learning more fun and interesting, here’s a list of important computer science theories and concepts explained with analogies and minimal technical terms. It’s like an ultra-fast-track computer science degree program for everyone, just to get you to understand the general concepts.'
+        ..url = 'http://carlcheo.com/compsci',
+      new Link()
+        ..title = 'Side projects - why it is important for every developer'
+        ..description = 'I have met hundreds of developers. The best ones always have a side project or two that they hack away on at night. As an employer I encourage that, but I have heard that a lot of workplaces ban personal projects.'
+        ..url = 'http://david.elbe.me/development/2014/09/26/side-projects.html',
+      new Link()
+        ..title = 'DTO vs Value Object vs POCO'
+        ..description = 'In this article, I’d like to clarify the differences in DTO vs Value Object vs POCO where DTO stands for Data Transfer Object, and POCO is Plain Old CLR Object, also known as POJO in Java environment. First of all, I want to make a note regarding Value Object.'
+        ..url = 'http://enterprisecraftsmanship.com/2015/04/13/dto-vs-value-object-vs-poco/'
+    ],
+    'Video' : [
+      new Link()
+        ..title = 'Supercharged'
+        ..url = 'https://www.youtube.com/playlist?list=PLNYkxOF6rcIBz9ACEQRmO9Lw8PW7vn0lr'
+        ..tags = ['video'],
+      new Link()
+        ..title = 'Javascript ES6 Cheatsheet - the best of JS ES6'
+        ..description = 'After a year of coding ES6 full-time, my favorite uses, the best parts, and what you need to know about them.Javascript ES6 comes with a TON of extremely useful new features - all of which you can use TODAY on bot browser and server side code using transpilers like babel or traceur. I highly recomm'
+        ..url = 'https://www.youtube.com/watch?v=AfWYO8t7ed4'
+        ..tags = ['video']
+    ],
+    'News' : [
+      new Link()
+        ..title = 'Inspecting Security and Privacy Settings of a Website ★ Mozilla Hacks – the Web developer blog'
+        ..description = 'Starting in Firefox 41, Mozilla provides a developer tool that allows users to inspect the security settings of a website. Using GCLI (Graphic Command Line Interface) a user can inspect the Content Security Policy (CSP) of a website.'
+        ..url = 'https://hacks.mozilla.org/2015/10/inspecting-security-and-privacy-settings-of-a-website/'
+        ..tags = ['news']
+    ]
+  };
 }
