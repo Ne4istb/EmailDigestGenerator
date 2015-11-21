@@ -9,6 +9,7 @@ environment:
 dependencies:
   mailer: '^0.8.12'
   mongo_dart: '0.2.5-beta'
+  http: '^0.11.3+2'
   pocket_client: any
 dev_dependencies:
   test: '>=0.12.0 <0.13.0'

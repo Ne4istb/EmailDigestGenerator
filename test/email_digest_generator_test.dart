@@ -30,7 +30,7 @@ void main() {
   });
 
   group('Mail generator tests', () {
-    MailGenerator generator;
+    HtmlGenerator generator;
 
     test('Should generate email', () {
       var linksByGroup = {
@@ -71,7 +71,7 @@ void main() {
       </div>
       ''';
 
-      generator = new MailGenerator(template, linksByGroup);
+      generator = new HtmlGenerator(template, linksByGroup);
       var result = generator.generate();
 
       var expected = '''

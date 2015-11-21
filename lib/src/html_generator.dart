@@ -2,17 +2,20 @@ library email_digest_generator.mail_generator;
 
 import 'package:email_digest_generator/src/link.dart';
 
-class MailGenerator {
+class HtmlGenerator {
 
   int _id;
   String _template;
+  String _issueTemplate;
   Map<String, List<Link>> _source;
 
-  MailGenerator(this._id, this._template, this._source);
+  HtmlGenerator(this._id, this._template, this._issueTemplate, this._source);
 
   String generate() {
 
-    _template = _template.replaceFirst("{{Id}}", _id.toString());
+    _template = _template
+      .replaceFirst("{{Id}}", _id.toString())
+      .replaceFirst("{{IssueTemplate}}", _issueTemplate);
 
     var groupTemplate = getTemplate(_template, r'<!-- start group repeat -->((.|\n|\r)*)<!-- end group repeat -->');
     if (groupTemplate == null) return _template;

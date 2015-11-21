@@ -4,7 +4,7 @@
 library email_digest_generator;
 
 export 'src/link_aggregator.dart';
-export 'src/mail_generator.dart';
+export 'src/html_generator.dart';
 export 'src/mailer.dart';
 export 'src/link.dart';
 export 'src/repository.dart';

@@ -16,14 +16,16 @@ String mongolabUser;
 String mongolabPassword;
 
 main() async {
+
   initPlatformVariables();
 
-  var linkAggregator = new LinkAggregator(consumerKey, accessToken);
-  var linksByGroup = await linkAggregator.getLinksByGroup();
+  var test = await getDigest(16);
+//  var linkAggregator = new LinkAggregator(consumerKey, accessToken);
+//  var linksByGroup = await linkAggregator.getLinksByGroup();
   var id = 21;
 
-//  await sendEmail(id, linksByGroup);
-  await saveDigest(id, linksByGroup);
+  await sendEmail(id, test[16]);
+//  await saveDigest(id, linksByGroup);
 //	linkAggregator.cleanUp(linksByGroup);
 }
 
@@ -44,9 +46,10 @@ sendEmail(id, Map<String, List<Link>> linksByGroup) async {
 
   var title = 'UI Team Weekly Digest #$id';
 
-  var template = await readTemplateFromFile('template${Platform.pathSeparator}template.html');
+  var mailTemplate = await readTemplateFromFile('templates${Platform.pathSeparator}mail_template.html');
+  var issueTemplate = await readTemplateFromFile('templates${Platform.pathSeparator}issue_template.html');
 
-  var generator = new MailGenerator(id, template, linksByGroup);
+  var generator = new HtmlGenerator(id, mailTemplate, issueTemplate, linksByGroup);
   var result = generator.generate();
 
   var mailer = new Mailer(mailUserName, mailPassword);
@@ -63,7 +66,7 @@ File getFile(String fileName) {
     ..removeLast()
     ..add(fileName);
 
-  return new File(Platform.pathSeparator + pathSegments.join(Platform.pathSeparator));
+  return new File((Platform.isMacOS ? Platform.pathSeparator : '') + pathSegments.join(Platform.pathSeparator));
 }
 
 saveDigest(id, Map<String, List<Link>> linksByGroup) async {
