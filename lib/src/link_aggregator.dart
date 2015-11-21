@@ -49,11 +49,13 @@ class LinkAggregator {
   String _getGroupName(List<String> tags) {
     if (tags.contains('video')) return 'Video';
     if (tags.contains('es6')) return 'ES6';
+    if (tags.contains('es7')) return 'ES7';
     if (tags.contains('news')) return 'News';
     if (tags.contains('javascript')) return 'JavaScript';
     if (tags.contains('css')) return 'CSS';
     if (tags.contains('.net')) return 'C#';
     if (tags.contains('web')) return 'Web-development';
+    if (tags.contains('events')) return 'Events & courses';
     return 'Other';
   }
 
@@ -64,11 +66,13 @@ class LinkAggregator {
     _addItem(groupedItems, result, 'JavaScript');
     _addItem(groupedItems, result, 'Web-development');
     _addItem(groupedItems, result, 'ES6');
+    _addItem(groupedItems, result, 'ES7');
     _addItem(groupedItems, result, 'CSS');
     _addItem(groupedItems, result, 'C#');
     _addItem(groupedItems, result, 'Other');
     _addItem(groupedItems, result, 'News');
     _addItem(groupedItems, result, 'Video');
+    _addItem(groupedItems, result, 'Events & courses');
 
     return result;
   }

@@ -16,8 +16,10 @@ class Link {
 
   Link.fromPocketItem(PocketData data) {
     id = int.parse(data.itemId);
-    title = new HtmlEscape().convert((data.resolvedTitle == null || data.resolvedTitle.isEmpty) ? data.givenTitle : data.resolvedTitle);
     url = data.resolvedUrl ?? data.givenUrl;
+    title = new HtmlEscape().convert((data.resolvedTitle == null || data.resolvedTitle.isEmpty) ? data.givenTitle :
+    data.resolvedTitle);
+    title = title.isEmpty ? url : title;
     tags = data.tags.map((Tag tag) => tag.tag).toList();
     imageUrl = data.hasImages ? data.images[0].sourceUrl : '';
     description = new HtmlEscape().convert(data.excerpt);

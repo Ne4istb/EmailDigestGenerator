@@ -12,16 +12,17 @@ String consumerKey;
 String accessToken;
 String mailUserName;
 String mailPassword;
-String mongolabApiKey;
+String mongolabUser;
+String mongolabPassword;
 
 main() async {
   initPlatformVariables();
 
   var linkAggregator = new LinkAggregator(consumerKey, accessToken);
   var linksByGroup = await linkAggregator.getLinksByGroup();
-  var id = 17;
+  var id = 21;
 
-  await sendEmail(id, linksByGroup);
+//  await sendEmail(id, linksByGroup);
   await saveDigest(id, linksByGroup);
 //	linkAggregator.cleanUp(linksByGroup);
 }
@@ -33,7 +34,8 @@ void initPlatformVariables() {
   accessToken = envVars['DIGEST_POCKET_ACCESS_CODE'];
   mailUserName = envVars['DIGEST_MAIL_USER_NAME'];
   mailPassword = envVars['DIGEST_MAIL_PASSWORD'];
-  mongolabApiKey = envVars['DIGEST_MONGOLAB_API_KEY'];
+  mongolabUser = envVars['DIGEST_MONGOLAB_USER'];
+  mongolabPassword = envVars['DIGEST_MONGOLAB_PASSWORD'];
 }
 
 sendEmail(id, Map<String, List<Link>> linksByGroup) async {
@@ -55,18 +57,34 @@ Future<String> readTemplateFromFile(String fileName) async {
   return await getFile(fileName).readAsString();
 }
 
-File getFile (String fileName){
+File getFile(String fileName) {
   var pathSegments = []
     ..addAll(Platform.script.pathSegments)
     ..removeLast()
     ..add(fileName);
 
-  return new File(pathSegments.join(Platform.pathSeparator));
+  return new File(Platform.pathSeparator + pathSegments.join(Platform.pathSeparator));
 }
 
 saveDigest(id, Map<String, List<Link>> linksByGroup) async {
-  var repository = new Repository(mongolabApiKey);
+  var repository = new Repository(mongolabUser, mongolabPassword);
+  await repository.openConnection();
   await repository.saveDigest(id, linksByGroup);
-//  var test = await repository.getDigest(id);
-//  var test = await repository.getAllDigests();
+  await repository.closeConnection();
+}
+
+getAllDigests() async {
+  var repository = new Repository(mongolabUser, mongolabPassword);
+  await repository.openConnection();
+  var result = await repository.getAllDigests();
+  await repository.closeConnection();
+  return result;
+}
+
+getDigest(id) async {
+  var repository = new Repository(mongolabUser, mongolabPassword);
+  await repository.openConnection();
+  var result = await repository.getDigest(id);
+  await repository.closeConnection();
+  return result;
 }
