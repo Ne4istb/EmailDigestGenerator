@@ -72,7 +72,7 @@ void main() {
       ''';
 
       generator = new HtmlGenerator(template, linksByGroup);
-      var result = generator.generate();
+      var result = generator.generateIssueHtml();
 
       var expected = '''
       <h1>Digest title</h1>

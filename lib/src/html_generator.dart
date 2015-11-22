@@ -4,25 +4,17 @@ import 'package:email_digest_generator/src/link.dart';
 
 class HtmlGenerator {
 
-  int _id;
-  String _title;
-  String _template;
-  String _issueTemplate;
-  Map<String, List<Link>> _source;
+  String generateIssueHtml(id, title, template, issueTemplate, source) {
 
-  HtmlGenerator(this._id, this._title, this._template, this._issueTemplate, this._source);
+    template = template
+      .replaceAll("{{IssueId}}", id.toString())
+      .replaceFirst("{{IssueTitle}}", title.toString())
+      .replaceFirst("{{IssueTemplate}}", issueTemplate);
 
-  String generate() {
-
-    _template = _template
-      .replaceAll("{{IssueId}}", _id.toString())
-      .replaceFirst("{{IssueTitle}}", _title.toString())
-      .replaceFirst("{{IssueTemplate}}", _issueTemplate);
-
-    var groupTemplate = getTemplate(_template, r'<!-- start group repeat -->((.|\n|\r)*)<!-- end group repeat -->');
-    if (groupTemplate == null) return _template;
+    var groupTemplate = getTemplate(template, r'<!-- start group repeat -->((.|\n|\r)*)<!-- end group repeat -->');
+    if (groupTemplate == null) return template;
     var result = "";
-    _source.forEach((groupName, links) {
+    source.forEach((groupName, links) {
 
       var groupHtml = groupTemplate.replaceAll("{{Group}}", groupName);
 
@@ -38,7 +30,16 @@ class HtmlGenerator {
       result += groupHtml.replaceFirst(itemTemplate, blocks);
     });
 
-    return _template.replaceFirst(groupTemplate, result);
+    return template.replaceFirst(groupTemplate, result);
+  }
+
+  String generateCatalogHtml(template, issueNumbers) {
+
+    var itemTemplate = getTemplate(template, r'<!-- start repeat -->((.|\n|\r)*)<!-- end repeat -->');
+
+    var blocks = issueNumbers.map((number) => itemTemplate.replaceAll("{{IssueNumber}}", number.toString())).join();
+
+    return template.replaceFirst(itemTemplate, blocks);
   }
 
   getTemplate(String template, regex) {

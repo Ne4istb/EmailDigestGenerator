@@ -46,6 +46,13 @@ class Repository {
       .toList();
   }
 
+  Future<List<int>> getIssueNumbers() async{
+    return _collection
+      .find(where.sortBy('_id'))
+      .map((item) => item['_id'])
+      .toList();
+  }
+
 //  Future<int> getLatestId() async{
 //    var allItems = await getAllDigests();
 //    allItems.map((item => item.)

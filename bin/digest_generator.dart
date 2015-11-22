@@ -23,8 +23,14 @@ class DigestGenerator {
     var issueTemplate = _readFile('templates${Platform.pathSeparator}issue_template.html');
     var template = _readFile(templatePath);
 
-    var generator = new HtmlGenerator(id, title, await template, await issueTemplate, linksByGroup);
-    return generator.generate();
+    var generator = new HtmlGenerator();
+    return generator.generateIssueHtml(id, title, await template, await issueTemplate, linksByGroup);
+  }
+
+  generateCatalog(templatePath, issueNumbers) async {
+    var template = _readFile(templatePath);
+    var generator = new HtmlGenerator();
+    return generator.generateCatalogHtml(await template, issueNumbers);
   }
 
   Future<String> _readFile(String fileName) {
@@ -50,6 +56,14 @@ class DigestGenerator {
     var repository = new Repository(_mongolabUser, _mongolabPassword);
     await repository.openConnection();
     var result = await repository.getAllDigests();
+    await repository.closeConnection();
+    return result;
+  }
+
+  getIssueNumbers() async {
+    var repository = new Repository(_mongolabUser, _mongolabPassword);
+    await repository.openConnection();
+    var result = await repository.getIssueNumbers();
     await repository.closeConnection();
     return result;
   }

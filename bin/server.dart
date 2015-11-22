@@ -9,7 +9,7 @@ import 'digest_generator.dart';
 class DigestService {
 
   DigestGenerator _digestGenerator = new DigestGenerator();
-  String pageTemplate = 'templates${Platform.pathSeparator}page_template.html';
+
 
   @app.Route("issues/:id", methods: const [app.GET], responseType: "text/html")
   get(int id) async {
@@ -19,12 +19,16 @@ class DigestService {
       return new app.ErrorResponse(HttpStatus.NOT_FOUND, "Issue is not found");
 
     var title = 'UI Team Weekly Digest #$id';
+    final pageTemplate = 'templates${Platform.pathSeparator}page_template.html';
     return _digestGenerator.generateHtml(pageTemplate, id, title, issue[id]);
   }
 
-  @app.Route("/", methods: const [app.GET])
-  getCatalog() {
-    return new shelf.Response.ok("Catalog to be here...");
+  @app.Route("/", methods: const [app.GET], responseType: "text/html")
+  getCatalog() async {
+
+    var issueNumbers = await _digestGenerator.getIssueNumbers();
+    final cataloTemplate = 'templates${Platform.pathSeparator}catalog_template.html';
+    return _digestGenerator.generateCatalog(cataloTemplate, issueNumbers);
   }
 }
 
