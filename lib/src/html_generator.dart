@@ -5,16 +5,18 @@ import 'package:email_digest_generator/src/link.dart';
 class HtmlGenerator {
 
   int _id;
+  String _title;
   String _template;
   String _issueTemplate;
   Map<String, List<Link>> _source;
 
-  HtmlGenerator(this._id, this._template, this._issueTemplate, this._source);
+  HtmlGenerator(this._id, this._title, this._template, this._issueTemplate, this._source);
 
   String generate() {
 
     _template = _template
-      .replaceFirst("{{Id}}", _id.toString())
+      .replaceAll("{{IssueId}}", _id.toString())
+      .replaceFirst("{{IssueTitle}}", _title.toString())
       .replaceFirst("{{IssueTemplate}}", _issueTemplate);
 
     var groupTemplate = getTemplate(_template, r'<!-- start group repeat -->((.|\n|\r)*)<!-- end group repeat -->');

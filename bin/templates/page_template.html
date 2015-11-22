@@ -99,7 +99,7 @@
     </style>
 
     <!-- MESSAGE SUBJECT -->
-    <title>$title</title>
+    <title>{{IssueTitle}}</title>
 </head>
 
 <body topmargin="0" rightmargin="0" bottommargin="0" leftmargin="0" marginwidth="0" marginheight="0" width="100%"
@@ -121,8 +121,8 @@
                    style="border-collapse: collapse; border-spacing: 0; padding: 0; width: inherit; max-width: 780px; position: relative">
                 <tr>
                     <td align="center" valign="top"
-                        style="border-collapse: collapse; border-spacing: 0; margin: 0; padding: 0; padding-left: 6.25%;
-                               padding-right: 6.25%; width: 87.5%;	padding-top: 20px; padding-bottom: 20px;">
+                        style="border-collapse: collapse; border-spacing: 0; margin: 0; padding: 0; padding-left: 10%;
+                               padding-right: 10%; width: 80%;	padding-top: 20px; padding-bottom: 20px;">
 
                         <!-- PREHEADER -->
                         <div class="preheader"
@@ -143,20 +143,29 @@
 
                 <!-- HEADER -->
                 <tr>
+                    <td valign="top"
+                        style="border-collapse: collapse; border-spacing: 0; margin: 0; padding: 30px 10% 0 10%; width: 80%;
+			                   color: #107A48; font-size: 16pt; font-weight:normal; text-align: left; font-family: 'Segoe UI Light', sans-serif;">
+                        <a href="/">Catalog</a> > <a href="/issues/{{IssueId}}">Issue {{IssueId}}</a>
+                    </td>
+                </tr>
+
+                <!-- HEADER -->
+                <tr>
                     <td class="header" align="center" valign="top"
-                        style="border-collapse: collapse; border-spacing: 0; margin: 0; padding: 0; padding-left: 6.25%; padding-right: 6.25%; width: 87.5%;
-			                   padding-top: 75px; color: black; font-size: 28pt; font-weight:normal; font-family: 'Segoe UI Light', sans-serif;">
-                        Issue <b>#{{Id}}</b>
+                        style="border-collapse: collapse; border-spacing: 0; margin: 0; padding: 0; padding-left: 10%; padding-right: 10%; width: 80%;
+			                   padding-top: 50px; color: black; font-size: 28pt; font-weight:normal; font-family: 'Segoe UI Light', sans-serif;">
+                        Issue <b>#{{IssueId}}</b>
                     </td>
                 </tr>
 
                 <!-- PARAGRAPH -->
                 <tr>
                     <td class="paragraph" align="center" valign="top"
-                        style="border-collapse: collapse; border-spacing: 0; margin: 0; padding: 0; padding-left: 6.25%; padding-right: 6.25%; width: 80%;
+                        style="border-collapse: collapse; border-spacing: 0; margin: 0; padding: 0; padding-left: 10%; padding-right: 10%; width: 80%;
                         font-size: 17px; font-weight: 400; line-height: 160%; padding-top: 25px; color: #000000; font-family: 'Segoe UI Light', sans-serif;">
 
-                        This email provides an overview of latest news regarding web development, web standards, tool
+                        This digest provides an overview of latest news regarding web development, web standards, tool
                         and other resources.
                     </td>
                 </tr>
@@ -175,28 +184,10 @@
            style="border-collapse: collapse; border-spacing: 0; margin: 0; padding: 0; width: 100%;" class="background">
         <tr>
             <td align="center" valign="top"
-                style="border-collapse: collapse; border-spacing: 0; margin: 0; padding: 0; background: #F0F0F0">
+                style="border-collapse: collapse; border-spacing: 0; margin: 0; padding: 0 0 20px 0; background: #F0F0F0">
 
                 {{IssueTemplate}}
 
-                <!-- WRAPPER -->
-                <table border="0" cellpadding="0" cellspacing="0" align="center"
-                       width="780" style="border-collapse: collapse; border-spacing: 0; padding: 0; width: inherit;
-	max-width: 780px;" class="wrapper">
-
-                    <!-- FOOTER -->
-                    <tr>
-                        <td align="center" valign="top" style="border-collapse: collapse; border-spacing: 0; margin: 0; padding: 0; padding-left: 6.25%; padding-right: 6.25%; width: 87.5%; font-size: 13px; font-weight: 400; line-height: 150%;
-			padding-top: 20px;
-			padding-bottom: 20px;
-			color: #999999;
-			font-family: sans-serif;" class="footer">
-                            This email template was sent to you because we want to make the world a better place:)
-                        </td>
-                    </tr>
-
-                    <!-- End of WRAPPER -->
-                </table>
 
                 <!-- End of SECTION / BACKGROUND -->
             </td>

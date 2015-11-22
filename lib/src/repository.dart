@@ -52,11 +52,13 @@ class Repository {
 //  }
 
   Map<String, List<Link>> _convertToGroups(Map body) {
+
+    if (body == null) return null;
+
     Map data = {};
 
     body['data'].forEach((key, List value) {
       data[key] = value.map((item) => new Link.fromJson(item));
-      ;
     });
 
     return { body['_id']: data};

@@ -1,25 +1,21 @@
-// Copyright (c) 2015, Ne4istb. All rights reserved. Use of this source code
-
-// is governed by a BSD-style license that can be found in the LICENSE file.
-
 library EmailDigestGenerator.example;
 
 import 'dart:io' show File, Platform;
 import 'package:email_digest_generator/email_digest_generator.dart';
-import 'dart:async';
+import 'digest_generator.dart';
 
-String consumerKey;
-String accessToken;
-String mailUserName;
-String mailPassword;
-String mongolabUser;
-String mongolabPassword;
+DigestGenerator _digestGenerator = new DigestGenerator();
+
+String _consumerKey;
+String _accessToken;
+String _mailUserName;
+String _mailPassword;
 
 main() async {
 
-  initPlatformVariables();
+  initEnvironmentVariables();
 
-  var test = await getDigest(16);
+  var test = await _digestGenerator.getDigest(16);
 //  var linkAggregator = new LinkAggregator(consumerKey, accessToken);
 //  var linksByGroup = await linkAggregator.getLinksByGroup();
   var id = 21;
@@ -29,65 +25,25 @@ main() async {
 //	linkAggregator.cleanUp(linksByGroup);
 }
 
-void initPlatformVariables() {
+initEnvironmentVariables(){
   Map<String, String> envVars = Platform.environment;
 
-  consumerKey = envVars['DIGEST_POCKET_CONSUMER_KEY'];
-  accessToken = envVars['DIGEST_POCKET_ACCESS_CODE'];
-  mailUserName = envVars['DIGEST_MAIL_USER_NAME'];
-  mailPassword = envVars['DIGEST_MAIL_PASSWORD'];
-  mongolabUser = envVars['DIGEST_MONGOLAB_USER'];
-  mongolabPassword = envVars['DIGEST_MONGOLAB_PASSWORD'];
+  _consumerKey = envVars['DIGEST_POCKET_CONSUMER_KEY'];
+  _accessToken = envVars['DIGEST_POCKET_ACCESS_CODE'];
+  _mailUserName = envVars['DIGEST_MAIL_USER_NAME'];
+  _mailPassword = envVars['DIGEST_MAIL_PASSWORD'];
 }
 
 sendEmail(id, Map<String, List<Link>> linksByGroup) async {
+
   var recipients = ['anechytailov@sdl.com', 'anechytailov@gmail.com'];
 //  var recipients = ['cmt.r&d.tridion.team.ui@sdl.com', 'vantonenko@sdl.com'];
 
   var title = 'UI Team Weekly Digest #$id';
 
-  var mailTemplate = await readTemplateFromFile('templates${Platform.pathSeparator}mail_template.html');
-  var issueTemplate = await readTemplateFromFile('templates${Platform.pathSeparator}issue_template.html');
+  var mail_template = 'templates${Platform.pathSeparator}mail_template.html';
+  var result = await _digestGenerator.generateHtml(mail_template, id, title, linksByGroup);
 
-  var generator = new HtmlGenerator(id, mailTemplate, issueTemplate, linksByGroup);
-  var result = generator.generate();
-
-  var mailer = new Mailer(mailUserName, mailPassword);
+  var mailer = new Mailer(_mailUserName, _mailPassword);
   await mailer.send(title, result, recipients);
-}
-
-Future<String> readTemplateFromFile(String fileName) async {
-  return await getFile(fileName).readAsString();
-}
-
-File getFile(String fileName) {
-  var pathSegments = []
-    ..addAll(Platform.script.pathSegments)
-    ..removeLast()
-    ..add(fileName);
-
-  return new File((Platform.isMacOS ? Platform.pathSeparator : '') + pathSegments.join(Platform.pathSeparator));
-}
-
-saveDigest(id, Map<String, List<Link>> linksByGroup) async {
-  var repository = new Repository(mongolabUser, mongolabPassword);
-  await repository.openConnection();
-  await repository.saveDigest(id, linksByGroup);
-  await repository.closeConnection();
-}
-
-getAllDigests() async {
-  var repository = new Repository(mongolabUser, mongolabPassword);
-  await repository.openConnection();
-  var result = await repository.getAllDigests();
-  await repository.closeConnection();
-  return result;
-}
-
-getDigest(id) async {
-  var repository = new Repository(mongolabUser, mongolabPassword);
-  await repository.openConnection();
-  var result = await repository.getDigest(id);
-  await repository.closeConnection();
-  return result;
 }
