@@ -46,6 +46,11 @@ class Repository {
       .toList();
   }
 
+  deleteDigest(id) async{
+    _collection.remove(where.eq('_id', id));
+  }
+
+
   Future<List<int>> getIssueNumbers() async{
     return _collection
       .find(where.sortBy('_id'))
@@ -65,7 +70,7 @@ class Repository {
     Map data = {};
 
     body['data'].forEach((key, List value) {
-      data[key] = value.map((item) => new Link.fromJson(item));
+      data[key] = value.map((item) => new Link.fromMap(item));
     });
 
     return { body['_id']: data};

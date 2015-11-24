@@ -9,3 +9,4 @@ export 'src/mailer.dart';
 export 'src/link.dart';
 export 'src/repository.dart';
 export 'src/import_data.dart';
+export 'src/digest_generator.dart';

@@ -2,7 +2,6 @@ library EmailDigestGenerator.example;
 
 import 'dart:io' show File, Platform;
 import 'package:email_digest_generator/email_digest_generator.dart';
-import 'digest_generator.dart';
 
 DigestGenerator _digestGenerator = new DigestGenerator();
 

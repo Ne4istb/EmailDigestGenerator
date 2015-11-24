@@ -2,7 +2,7 @@
 
 // is governed by a BSD-style license that can be found in the LICENSE file.
 
-library EmailDigestGenerator.digest_generator;
+library email_digest_generator.digest_generator;
 
 import 'dart:io' show File, Platform;
 import 'package:email_digest_generator/email_digest_generator.dart';
@@ -40,7 +40,7 @@ class DigestGenerator {
       ..removeLast()
       ..add(fileName);
 
-    var path = (Platform.isMacOS ? Platform.pathSeparator : '') + pathSegments.join(Platform.pathSeparator);
+    var path = (Platform.isWindows ? '' : Platform.pathSeparator) + pathSegments.join(Platform.pathSeparator);
 
     return new File(path).readAsString();
   }
@@ -74,5 +74,12 @@ class DigestGenerator {
     var result = await repository.getDigest(id);
     await repository.closeConnection();
     return result;
+  }
+
+  deleteDigest(id) async {
+    var repository = new Repository(_mongolabUser, _mongolabPassword);
+    await repository.openConnection();
+    await repository.deleteDigest(id);
+    await repository.closeConnection();
   }
 }

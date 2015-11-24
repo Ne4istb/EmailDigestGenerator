@@ -25,15 +25,13 @@ class Link {
     description = new HtmlEscape().convert(data.excerpt);
   }
 
-  Link.fromJson(value) {
-    Map map = JSON.decode(value);
-
-    id = map['id'];
-    title = map['title'];
-    description = map['description'];
-    url = map['url'];
-    imageUrl = map['imageUrl'];
-    tags = map['tags'];
+  Link.fromMap(value) {
+    id = value['id'];
+    title = value['title'];
+    description = value['description'];
+    url = value['url'];
+    imageUrl = value['imageUrl'];
+    tags = value['tags'];
   }
 
   String toJson(){

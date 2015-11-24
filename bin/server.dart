@@ -1,9 +1,7 @@
 import 'package:redstone/server.dart' as app;
-import 'package:shelf/shelf.dart' as shelf;
-import 'dart:io' show HttpStatus;
+import 'dart:io';
 
-import 'dart:io' show File, Platform;
-import 'digest_generator.dart';
+import 'package:email_digest_generator/email_digest_generator.dart';
 
 @app.Group("/")
 class DigestService {
@@ -27,8 +25,18 @@ class DigestService {
   getCatalog() async {
 
     var issueNumbers = await _digestGenerator.getIssueNumbers();
-    final cataloTemplate = 'templates${Platform.pathSeparator}catalog_template.html';
-    return _digestGenerator.generateCatalog(cataloTemplate, issueNumbers);
+    final catalogTemplate = 'templates${Platform.pathSeparator}catalog_template.html';
+    return _digestGenerator.generateCatalog(catalogTemplate, issueNumbers);
+  }
+
+  @app.Route("/migrate", methods: const [app.GET])
+  migrate() async {
+
+//    for (var i=101; i<=120; i++){
+//      await _digestGenerator.deleteDigest(i);
+//    }
+//
+    return "OK";
   }
 }
 
@@ -37,5 +45,9 @@ class DigestService {
 handleNotFoundError() => app.redirect("/");
 
 main() {
-  app.start();
+  app.setupConsoleLog();
+
+  var portEnv = Platform.environment['PORT'];
+  var port = portEnv == null ? 9999 : int.parse(portEnv);
+  app.start(address: InternetAddress.ANY_IP_V4, port: port);
 }
