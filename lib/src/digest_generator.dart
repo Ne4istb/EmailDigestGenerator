@@ -20,7 +20,7 @@ class DigestGenerator {
 
   generateHtml(templatePath, id, title, Map<String, List<Link>> linksByGroup) async {
 
-    var issueTemplate = _readFile('templates${Platform.pathSeparator}issue_template.html');
+    var issueTemplate = _readFile('templates/issue_template.html');
     var template = _readFile(templatePath);
 
     var generator = new HtmlGenerator();
@@ -34,14 +34,7 @@ class DigestGenerator {
   }
 
   Future<String> _readFile(String fileName) {
-
-    var pathSegments = []
-      ..addAll(Platform.script.pathSegments)
-      ..removeLast()
-      ..add(fileName);
-
-    var path = (Platform.isWindows ? '' : Platform.pathSeparator) + pathSegments.join(Platform.pathSeparator);
-
+    var path = Platform.script.resolve(fileName).toFilePath();
     return new File(path).readAsString();
   }
 

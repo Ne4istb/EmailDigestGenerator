@@ -1,4 +1,4 @@
-import 'package:redstone/server.dart' as app;
+import 'package:redstone/redstone.dart' as app;
 import 'dart:io';
 
 import 'package:email_digest_generator/email_digest_generator.dart';
@@ -17,7 +17,7 @@ class DigestService {
       return new app.ErrorResponse(HttpStatus.NOT_FOUND, "Issue is not found");
 
     var title = 'UI Team Weekly Digest #$id';
-    final pageTemplate = 'templates${Platform.pathSeparator}page_template.html';
+    final pageTemplate = 'templates/page_template.html';
     return _digestGenerator.generateHtml(pageTemplate, id, title, issue[id]);
   }
 
@@ -25,7 +25,7 @@ class DigestService {
   getCatalog() async {
 
     var issueNumbers = await _digestGenerator.getIssueNumbers();
-    final catalogTemplate = 'templates${Platform.pathSeparator}catalog_template.html';
+    final catalogTemplate = 'templates/catalog_template.html';
     return _digestGenerator.generateCatalog(catalogTemplate, issueNumbers);
   }
 
@@ -49,5 +49,13 @@ main() {
 
   var portEnv = Platform.environment['PORT'];
   var port = portEnv == null ? 9999 : int.parse(portEnv);
-  app.start(address: InternetAddress.ANY_IP_V4, port: port);
+
+  String localFile(path) => Platform.script.resolve(path).toFilePath();
+
+  SecurityContext serverContext = new SecurityContext()
+    ..useCertificateChain(localFile('certificates/trusted_cert.pem'))
+    ..usePrivateKey(localFile('certificates/server_key.pem'), password: Platform.environment['DIGEST_CERTIFICATE_PASSWORD']);
+
+  app.start(address: InternetAddress.ANY_IP_V4, port: port, secureOptions: {#context: serverContext});
+
 }
