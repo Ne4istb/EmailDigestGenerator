@@ -14,14 +14,13 @@ main() async {
 
   initEnvironmentVariables();
 
-  var test = await _digestGenerator.getDigest(16);
-//  var linkAggregator = new LinkAggregator(consumerKey, accessToken);
-//  var linksByGroup = await linkAggregator.getLinksByGroup();
-  var id = 21;
+  var linkAggregator = new LinkAggregator(_consumerKey, _accessToken);
+  var linksByGroup = await linkAggregator.getLinksByGroup();
+  var id = 22;
 
-  await sendEmail(id, test[16]);
-//  await saveDigest(id, linksByGroup);
-//	linkAggregator.cleanUp(linksByGroup);
+//  await sendEmail(id, linksByGroup);
+  await _digestGenerator.saveDigest(id, linksByGroup);
+	linkAggregator.cleanUp(linksByGroup);
 }
 
 initEnvironmentVariables(){
@@ -35,12 +34,12 @@ initEnvironmentVariables(){
 
 sendEmail(id, Map<String, List<Link>> linksByGroup) async {
 
-  var recipients = ['anechytailov@sdl.com', 'anechytailov@gmail.com'];
-//  var recipients = ['cmt.r&d.tridion.team.ui@sdl.com', 'vantonenko@sdl.com'];
+//  var recipients = ['anechytailov@sdl.com', 'anechytailov@gmail.com'];
+  var recipients = ['cmt.r&d.tridion.team.ui@sdl.com', 'vantonenko@sdl.com'];
 
   var title = 'UI Team Weekly Digest #$id';
 
-  var mail_template = 'templates${Platform.pathSeparator}mail_template.html';
+  var mail_template = 'templates/mail_template.html';
   var result = await _digestGenerator.generateHtml(mail_template, id, title, linksByGroup);
 
   var mailer = new Mailer(_mailUserName, _mailPassword);

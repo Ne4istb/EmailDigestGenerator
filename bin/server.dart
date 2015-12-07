@@ -56,6 +56,6 @@ main() {
     ..useCertificateChain(localFile('certificates/trusted_cert.pem'))
     ..usePrivateKey(localFile('certificates/server_key.pem'), password: Platform.environment['DIGEST_CERTIFICATE_PASSWORD']);
 
-  app.start(address: InternetAddress.ANY_IP_V4, port: port, secureOptions: {#context: serverContext});
+  app.start(port: port);
 
 }
