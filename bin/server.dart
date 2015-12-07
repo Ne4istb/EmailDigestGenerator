@@ -8,7 +8,6 @@ class DigestService {
 
   DigestGenerator _digestGenerator = new DigestGenerator();
 
-
   @app.Route("issues/:id", methods: const [app.GET], responseType: "text/html")
   get(int id) async {
     var issue = await _digestGenerator.getDigest(id);
@@ -37,6 +36,23 @@ class DigestService {
 //    }
 //
     return "OK";
+  }
+
+  @app.Route("/send_email/:key/:id", methods: const [app.GET])
+  send(String key, int id) async {
+
+    if (key != _digestGenerator.consumerKey){
+      return "Not allowed!";
+    }
+
+    var linkAggregator = new LinkAggregator(_digestGenerator.consumerKey, _digestGenerator.accessToken);
+    var linksByGroup = await linkAggregator.getLinksByGroup();
+
+    await _digestGenerator.sendEmail(id, linksByGroup);
+    await _digestGenerator.saveDigest(id, linksByGroup);
+	  linkAggregator.cleanUp(linksByGroup);
+
+    return 'Sent!';
   }
 }
 

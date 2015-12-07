@@ -12,10 +12,20 @@ class DigestGenerator {
 
   String _mongolabUser;
   String _mongolabPassword;
+  String consumerKey;
+  String accessToken;
+  String _mailUserName;
+  String _mailPassword;
 
   DigestGenerator() {
-    _mongolabUser = Platform.environment['DIGEST_MONGOLAB_USER'];
-    _mongolabPassword = Platform.environment['DIGEST_MONGOLAB_PASSWORD'];
+    Map<String, String> envVars = Platform.environment;
+
+    _mongolabUser = envVars['DIGEST_MONGOLAB_USER'];
+    _mongolabPassword = envVars['DIGEST_MONGOLAB_PASSWORD'];
+    consumerKey = envVars['DIGEST_POCKET_CONSUMER_KEY'];
+    accessToken = envVars['DIGEST_POCKET_ACCESS_CODE'];
+    _mailUserName = envVars['DIGEST_MAIL_USER_NAME'];
+    _mailPassword = envVars['DIGEST_MAIL_PASSWORD'];
   }
 
   generateHtml(templatePath, id, title, Map<String, List<Link>> linksByGroup) async {
@@ -31,6 +41,19 @@ class DigestGenerator {
     var template = _readFile(templatePath);
     var generator = new HtmlGenerator();
     return generator.generateCatalogHtml(await template, issueNumbers);
+  }
+
+  sendEmail(id, Map<String, List<Link>> linksByGroup) async {
+//    var recipients = ['anechytailov@sdl.com', 'anechytailov@gmail.com'];
+    var recipients = ['cmt.r&d.tridion.team.ui@sdl.com', 'vantonenko@sdl.com'];
+
+    var title = 'UI Team Weekly Digest #$id';
+
+    var mail_template = 'templates/mail_template.html';
+    var result = await generateHtml(mail_template, id, title, linksByGroup);
+
+    var mailer = new Mailer(_mailUserName, _mailPassword);
+    await mailer.send(title, result, recipients);
   }
 
   Future<String> _readFile(String fileName) {
