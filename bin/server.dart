@@ -35,22 +35,31 @@ class DigestService {
 //      await _digestGenerator.deleteDigest(i);
 //    }
 //
-    return "OK";
+    return await _digestGenerator.getLatestDigestId();
   }
 
   @app.Route("/send_email/:key/:id", methods: const [app.GET])
-  send(String key, int id) async {
+  send(String key, id) async {
 
     if (key != _digestGenerator.consumerKey){
       return "Not allowed!";
+    }
+
+    var weekday = new DateTime.now().weekday;
+    if (weekday != DateTime.TUESDAY){
+      return "Wrong day!";
+    }
+
+    if (id == 'latest'){
+      id = await _digestGenerator.getLatestDigestId() + 1;
     }
 
     var linkAggregator = new LinkAggregator(_digestGenerator.consumerKey, _digestGenerator.accessToken);
     var linksByGroup = await linkAggregator.getLinksByGroup();
 
     await _digestGenerator.sendEmail(id, linksByGroup);
-    await _digestGenerator.saveDigest(id, linksByGroup);
-	  linkAggregator.cleanUp(linksByGroup);
+//    await _digestGenerator.saveDigest(id, linksByGroup);
+//	  linkAggregator.cleanUp(linksByGroup);
 
     return 'Sent!';
   }

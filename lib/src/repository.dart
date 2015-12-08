@@ -40,10 +40,13 @@ class Repository {
   }
 
   Future<List<Map<String, List<Link>>>> getAllDigests() async{
-    return _collection
-      .find(where.sortBy('_id'))
+    return _getAllDigests()
       .map((item) => _convertToGroups(item))
       .toList();
+  }
+
+  Stream<Map> _getAllDigests() {
+    return _collection.find(where.sortBy('_id', descending:true));
   }
 
   deleteDigest(id) async{
@@ -52,16 +55,15 @@ class Repository {
 
 
   Future<List<int>> getIssueNumbers() async{
-    return _collection
-      .find(where.sortBy('_id'))
+    return _getAllDigests()
       .map((item) => item['_id'])
       .toList();
   }
 
-//  Future<int> getLatestId() async{
-//    var allItems = await getAllDigests();
-//    allItems.map((item => item.)
-//  }
+  Future<int> getLatestId() async{
+    Map latestItem = await _getAllDigests().first;
+    return latestItem["_id"];
+  }
 
   Map<String, List<Link>> _convertToGroups(Map body) {
 
