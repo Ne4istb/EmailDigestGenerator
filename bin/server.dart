@@ -46,7 +46,7 @@ class DigestService {
     }
 
     var weekday = new DateTime.now().weekday;
-    if (weekday != DateTime.TUESDAY){
+    if (weekday != DateTime.WEDNESDAY){
       return "Wrong day!";
     }
 
