@@ -41,14 +41,14 @@ class DigestService {
   @app.Route("/send_email/:key/:id", methods: const [app.GET])
   send(String key, id) async {
 
-    if (key != _digestGenerator.consumerKey){
-      return "Not allowed!";
-    }
-
-    var weekday = new DateTime.now().weekday;
-    if (weekday != DateTime.WEDNESDAY){
-      return "Wrong day!";
-    }
+//    if (key != _digestGenerator.consumerKey){
+//      return "Not allowed!";
+//    }
+//
+//    var weekday = new DateTime.now().weekday;
+//    if (weekday != DateTime.WEDNESDAY){
+//      return "Wrong day!";
+//    }
 
     if (id == 'latest'){
       id = await _digestGenerator.getLatestDigestId() + 1;
