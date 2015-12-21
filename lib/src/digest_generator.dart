@@ -44,8 +44,8 @@ class DigestGenerator {
   }
 
   sendEmail(id, Map<String, List<Link>> linksByGroup) async {
-    var recipients = ['anechytailov@sdl.com', 'anechytailov@gmail.com'];
-//    var recipients = ['cmt.r&d.tridion.team.ui@sdl.com', 'vantonenko@sdl.com'];
+//    var recipients = ['anechytailov@sdl.com', 'anechytailov@gmail.com'];
+    var recipients = ['cmt.r&d.tridion.team.ui@sdl.com', 'vantonenko@sdl.com'];
 
     var title = 'UI Team Weekly Digest #$id';
 
