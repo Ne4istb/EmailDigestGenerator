@@ -17,6 +17,8 @@ class DigestGenerator {
   String _mailUserName;
   String _mailPassword;
 
+  Repository _repository;
+
   DigestGenerator() {
     Map<String, String> envVars = Platform.environment;
 
@@ -26,6 +28,8 @@ class DigestGenerator {
     accessToken = envVars['DIGEST_POCKET_ACCESS_CODE'];
     _mailUserName = envVars['DIGEST_MAIL_USER_NAME'];
     _mailPassword = envVars['DIGEST_MAIL_PASSWORD'];
+
+    _repository = new Repository(_mongolabUser, _mongolabPassword);
   }
 
   generateHtml(templatePath, id, title, Map<String, List<Link>> linksByGroup) async {
@@ -62,48 +66,26 @@ class DigestGenerator {
   }
 
   saveDigest(id, Map<String, List<Link>> linksByGroup) async {
-    var repository = new Repository(_mongolabUser, _mongolabPassword);
-    await repository.openConnection();
-    await repository.saveDigest(id, linksByGroup);
-    await repository.closeConnection();
+    await _repository.saveDigest(id, linksByGroup);
   }
 
   getAllDigests() async {
-    var repository = new Repository(_mongolabUser, _mongolabPassword);
-    await repository.openConnection();
-    var result = await repository.getAllDigests();
-    await repository.closeConnection();
-    return result;
+    return await _repository.getAllDigests();
   }
 
   getIssueNumbers() async {
-    var repository = new Repository(_mongolabUser, _mongolabPassword);
-    await repository.openConnection();
-    var result = await repository.getIssueNumbers();
-    await repository.closeConnection();
-    return result;
+    return await _repository.getIssueNumbers();
   }
 
   getDigest(id) async {
-    var repository = new Repository(_mongolabUser, _mongolabPassword);
-    await repository.openConnection();
-    var result = await repository.getDigest(id);
-    await repository.closeConnection();
-    return result;
+    return await _repository.getDigest(id);
   }
 
   getLatestDigestId() async {
-    var repository = new Repository(_mongolabUser, _mongolabPassword);
-    await repository.openConnection();
-    var result = await repository.getLatestId();
-    await repository.closeConnection();
-    return result;
+    return await _repository.getLatestId();
   }
 
   deleteDigest(id) async {
-    var repository = new Repository(_mongolabUser, _mongolabPassword);
-    await repository.openConnection();
-    await repository.deleteDigest(id);
-    await repository.closeConnection();
+    await _repository.deleteDigest(id);
   }
 }

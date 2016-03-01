@@ -1,7 +1,5 @@
 library email_digest_generator.mail_generator;
 
-import 'package:email_digest_generator/src/link.dart';
-
 class HtmlGenerator {
 
   String generateIssueHtml(id, title, template, issueTemplate, source) {

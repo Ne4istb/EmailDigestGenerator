@@ -2,29 +2,22 @@ library email_digest_generator.repository;
 import 'package:mongo_dart/mongo_dart.dart';
 import 'dart:async';
 
-import 'package:email_digest_generator/src/link.dart';
+import 'package:email_digest_generator/src/Models/link.dart';
+import 'package:email_digest_generator/src/Models/database.dart';
 
-class Repository {
+class Repository extends Database{
 
-  Db _db;
   DbCollection _collection;
 
-  Repository(dbUser, dbPassword){
-    _db = new Db("mongodb://$dbUser:$dbPassword@ds033734.mongolab.com:33734/digests");
-    _collection = _db.collection('issues');
-  }
-
-  openConnection()async{
-    await _db.open();
-  }
-
-  closeConnection()async{
-    await _db.close();
+  Repository(dbUser, dbPassword):super(dbUser, dbPassword){
+    _collection = db.collection('issues');
   }
 
   saveDigest(int id, Map<String, List<Link>> links) async {
+    await openConnection();
     var data = { "_id": id, "data": _convertLinksToBsonCompatibleMap(links) };
     await _collection.insert(data);
+    await closeConnection();
   }
 
   Map<String, List<Map>> _convertLinksToBsonCompatibleMap(Map<String, List<Link>> links) {
@@ -33,16 +26,20 @@ class Repository {
     return result;
   }
 
-  Future<Map<String, List<Link>>> getDigest(id) {
-    return _collection
+  Future<Map<String, List<Link>>> getDigest(id) async {
+    await openConnection();
+    var result = await _collection
       .findOne(where.eq('_id', id))
       .then(_convertToGroups);
+    await closeConnection();
+    return result;
   }
 
   Future<List<Map<String, List<Link>>>> getAllDigests() async{
-    return _getAllDigests()
-      .map((item) => _convertToGroups(item))
-      .toList();
+    await openConnection();
+    var result = await _getAllDigests().map((item) => _convertToGroups(item)).toList();
+    await closeConnection();
+    return result;
   }
 
   Stream<Map> _getAllDigests() {
@@ -50,19 +47,25 @@ class Repository {
   }
 
   deleteDigest(id) async{
-    _collection.remove(where.eq('_id', id));
+    await openConnection();
+    await _collection.remove(where.eq('_id', id));
+    await closeConnection();
   }
 
 
   Future<List<int>> getIssueNumbers() async{
-    return _getAllDigests()
-      .map((item) => item['_id'])
-      .toList();
+    await openConnection();
+    var result = await _getAllDigests().map((item) => item['_id']).toList();
+    await closeConnection();
+    return result;
   }
 
   Future<int> getLatestId() async{
+    await openConnection();
     Map latestItem = await _getAllDigests().first;
-    return latestItem["_id"];
+    var result = latestItem["_id"];
+    await closeConnection();
+    return result;
   }
 
   Map<String, List<Link>> _convertToGroups(Map body) {
