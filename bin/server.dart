@@ -2,6 +2,7 @@ import 'package:redstone/redstone.dart' as app;
 import 'dart:io';
 
 import 'package:email_digest_generator/email_digest_generator.dart';
+import 'dart:async';
 
 @app.Group("/")
 class DigestService {
@@ -50,18 +51,30 @@ class DigestService {
       return "Wrong day!";
     }
 
-    if (id == 'latest'){
-      id = await _digestGenerator.getLatestDigestId() + 1;
-    }
+    if (id == 'latest')
+      await _sendLatestIssue();
+    else
+      await _sendIssueById(int.parse(id));
+
+    return 'Sent!';
+  }
+
+  Future _sendLatestIssue() async {
+
+    var id = await _digestGenerator.getLatestDigestId() + 1;
 
     var linkAggregator = new LinkAggregator(_digestGenerator.consumerKey, _digestGenerator.accessToken);
     var linksByGroup = await linkAggregator.getLinksByGroup();
 
-    await _digestGenerator.sendEmail(id, linksByGroup);
+    await _digestGenerator.sendEmail(id.toString(), linksByGroup);
     await _digestGenerator.saveDigest(id, linksByGroup);
-	  linkAggregator.cleanUp(linksByGroup);
 
-    return 'Sent!';
+    linkAggregator.cleanUp(linksByGroup);
+  }
+
+  Future _sendIssueById(int id) async {
+    var issue = await _digestGenerator.getDigest(id);
+    await _digestGenerator.sendEmail(id.toString(), issue[id]);
   }
 }
 
